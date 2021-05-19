@@ -28,3 +28,16 @@ export const UserAvatar = styled.Image`
 export const BackButton = styled.TouchableOpacity`
   margin-top: 40px;
 `;
+export const Checkbutton = styled.TouchableOpacity`
+  width: 100%;
+  height: 60px;
+  background: #228b22;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8px;
+`;
+export const TextButton = styled.Text`
+  color: #fff;
+  font-size: 18px;
+`;

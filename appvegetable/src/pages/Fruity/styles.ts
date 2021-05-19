@@ -10,7 +10,8 @@ export const HeaderContainer = styled.View`
   width: 100%;
   height: 50px;
   justify-content: space-between;
-
+  border-width: 2px;
+  border-color: #228b22;
   flex-direction: row;
 `;
 export const ArrowContainer = styled.TouchableOpacity`

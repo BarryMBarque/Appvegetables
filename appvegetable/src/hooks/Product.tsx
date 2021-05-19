@@ -9,6 +9,7 @@ import React, {
 } from 'react';
 import api from '../services/api';
 import AsyncStorage from '@react-native-community/async-storage';
+import { Alert } from 'react-native';
 
 interface Product {
   id: string;
@@ -68,22 +69,26 @@ const ProductProvider: React.FC = ({ children }) => {
 
   const getProduct = useCallback(async () => {
 
-    const response = await api.get('/getAllProducts');
+    try{
+      const response = await api.get('/getAllProducts');
 
-    const  product = response.data;
+      const  product = response.data;
 
-    await AsyncStorage.setItem(
+      await AsyncStorage.setItem(
 
-      '@AppVegetable:product', JSON.stringify(product)
-    );
-    setData(product);
+        '@AppVegetable:product', JSON.stringify(product)
+      );
+      setData(product);
+    }catch{
+      Alert.alert('Erro, Erro ao carregar os produtos')
+    }
   }, []);
   const findById = useCallback(async (product_id) => {
 
     const response = await api.post('/products/findByid',{product_id});
 
     const  product = response.data;
-    console.log(product);
+
     await AsyncStorage.setItem(
 
       '@AppVegetable:productCart', JSON.stringify(product)

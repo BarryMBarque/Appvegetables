@@ -96,7 +96,7 @@ const SignUp: React.FC = () => {
         <ScrollView>
           <Container>
             <View>
-              <Title>Creer um compte</Title>
+              <Title>Criar uma conta</Title>
             </View>
             <Form ref={formRef} onSubmit={handleSignUp}>
               <Input
@@ -106,7 +106,7 @@ const SignUp: React.FC = () => {
                 placeholder="Nome"
                 returnKeyType="next"
                 onSubmitEditing={() => {
-                  emailInputRef.current?.focus();
+                  cpfInputRef.current?.focus();
                 }}
               />
               <Input
@@ -115,11 +115,11 @@ const SignUp: React.FC = () => {
                 autoCorrect={false}
                 autoCapitalize="none"
                 name="cpf"
-                icon="user"
+                icon="paperclip"
                 placeholder="CPF"
                 returnKeyType="next"
                 onSubmitEditing={() => {
-                  cpfInputRef.current?.focus();
+                  phoneNumberInputRef.current?.focus();
                 }}
               />
               <Input
@@ -128,11 +128,11 @@ const SignUp: React.FC = () => {
                 autoCorrect={false}
                 autoCapitalize="none"
                 name="phoneNumber"
-                icon="user"
+                icon="phone"
                 placeholder="Telephone"
                 returnKeyType="next"
                 onSubmitEditing={() => {
-                  phoneNumberInputRef.current?.focus();
+                  emailInputRef.current?.focus();
                 }}
               />
               <Input
@@ -141,7 +141,7 @@ const SignUp: React.FC = () => {
                 autoCorrect={false}
                 autoCapitalize="none"
                 name="email"
-                icon="user"
+                icon="mail"
                 placeholder="Email"
                 returnKeyType="next"
                 onSubmitEditing={() => {
@@ -165,7 +165,7 @@ const SignUp: React.FC = () => {
               onPress={() => {
                 formRef.current?.submitForm();
               }}>
-              Entrer
+              Cadastrar
             </Button>
           </Container>
         </ScrollView>

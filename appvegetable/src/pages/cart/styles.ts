@@ -10,7 +10,8 @@ export const HeaderContainer = styled.View`
   width: 100%;
   height: 50px;
   justify-content: space-between;
-
+  border-width: 2px;
+  border-color: #228b22;
   flex-direction: row;
 `;
 export const ArrowContainer = styled.TouchableOpacity`
@@ -21,14 +22,13 @@ export const ArrowContainer = styled.TouchableOpacity`
   height: 50px;
 `;
 export const Checkbutton = styled.TouchableOpacity`
-  align-self: center;
-  align-items: center;
+  width: 100%;
+  height: 60px;
+  background: #228b22;
+  border-radius: 10px;
   justify-content: center;
-  width: 90%;
-  border-radius: 20px;
-  background-color: #228b22;
-  padding-top: 8px;
-  height: 50px;
+  align-items: center;
+  margin-top: 8px;
 `;
 export const FruityTexte = styled.Text`
   align-self: center;
@@ -86,9 +86,9 @@ export const FruityDescriptionText = styled.Text`
 `;
 export const PromoPrice = styled.Text`
   color: #228b22;
-
   font-weight: 700;
   font-size: 22px;
+  padding-bottom: 5px;
 `;
 export const Promototal = styled.Text`
   font-weight: 400;
@@ -134,10 +134,10 @@ export const HeaderChoice = styled.TouchableOpacity`
 
   margin-top: 4px;
   border-radius: 10px;
-  background-color: #fbfdf7;
+  background-color: #fff;
   border-width: 3px;
 
-  border-color: rgba(22, 125, 22, 0.5);
+  border-color: rgba(1, 125, 2, 0.8);
 `;
 export const TotalPriceChoice = styled.View`
   align-content: center;
@@ -148,7 +148,7 @@ export const TotalPriceChoice = styled.View`
 
   margin-top: 4px;
   border-radius: 10px;
-  background-color: #fbfdf7;
+  background-color: #fff;
 `;
 export const TotalChoice = styled.View`
   align-content: center;
@@ -159,7 +159,7 @@ export const TotalChoice = styled.View`
   justify-content: space-between;
   margin-top: 4px;
 
-  background-color: #fbfdf7;
+  background-color: #fff;
 `;
 export const HeaderChoiceText = styled.Text`
   align-self: center;

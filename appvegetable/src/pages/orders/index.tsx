@@ -34,11 +34,13 @@ import {
   FruityPin,
   PromoPercentContainer,
   PromoPercentual,
+  Title,
 } from './styles';
 import {Container} from './styles';
 import {useNavigation} from '@react-navigation/native';
 import {useProduct} from '../../hooks/Product';
 import {useOrder} from '../../hooks/Order';
+import {FruityDescriptionCartContainer} from '../cart/styles';
 
 const Orders: React.FC = ({navigation}: any) => {
   const {Order, getOrder, loadingOrder} = useOrder();
@@ -63,12 +65,10 @@ const Orders: React.FC = ({navigation}: any) => {
             <Container>
               <HeaderContainer>
                 <ArrowContainer onPress={() => goBack()}>
-                  <Icon name="arrow-left" size={30} color="#228B22" />
+                  <Icon name="chevron-left" size={30} color="#228B22" />
                 </ArrowContainer>
                 <FruityTexte>Pedidos</FruityTexte>
               </HeaderContainer>
-
-              {/* <ScrollView> */}
               <FlatList
                 data={Order}
                 keyExtractor={(item, index) => item.id}
@@ -96,12 +96,32 @@ const Orders: React.FC = ({navigation}: any) => {
                     </FruityPin>
 
                     <FruityDescriptionContainer>
-                      <FruityDescriptionText>
-                        {item.item.name}
-                      </FruityDescriptionText>
-                      <FruityWeight>
-                        {item.item.val_unit} x{item.item.quantity}
-                      </FruityWeight>
+                      <Title>
+                        <FruityDescriptionText>
+                          {item.item.name}
+                        </FruityDescriptionText>
+                        {item.item.status === 1 ? (
+                          <View
+                            style={{
+                              flex: 1,
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                            }}>
+                            <ActivityIndicator size="small" color="#228b22" />
+                          </View>
+                        ) : (
+                          <Icon name="check" size={30} color="#228B22" />
+                        )}
+                      </Title>
+                      <FruityDescriptionCartContainer>
+                        <FruityWeight>${item.item.val_unit}</FruityWeight>
+                        <FruityWeight>x {item.item.quantity}</FruityWeight>
+                        {item.item.status === 1 ? (
+                          <FruityWeight>Em endamento</FruityWeight>
+                        ) : (
+                          <FruityWeight>Entregue</FruityWeight>
+                        )}
+                      </FruityDescriptionCartContainer>
                       <FruityPriceContainer>
                         <PromoPrice>${item.item.total_price}</PromoPrice>
                         {/* <FruityPrice>${item.item.total_price}</FruityPrice> */}

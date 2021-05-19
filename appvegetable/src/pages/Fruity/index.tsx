@@ -57,7 +57,7 @@ const Fruity: React.FC = ({navigation}: any) => {
             <Container>
               <HeaderContainer>
                 <ArrowContainer onPress={() => goBack()}>
-                  <Icon name="arrow-left" size={30} color="#228B22" />
+                  <Icon name="chevron-left" size={30} color="#228B22" />
                 </ArrowContainer>
                 <FruityTexte>Fruitas</FruityTexte>
               </HeaderContainer>

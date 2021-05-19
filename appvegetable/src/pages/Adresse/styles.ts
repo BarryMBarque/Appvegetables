@@ -39,6 +39,8 @@ export const HeaderContainer = styled.View`
   height: 50px;
   border-bottom-width: 1px;
   flex-direction: row;
+  border-width: 2px;
+  border-color: #228b22;
 `;
 export const ArrowContainer = styled.TouchableOpacity`
   align-self: flex-start;

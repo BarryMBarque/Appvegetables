@@ -9,6 +9,7 @@ import React, {
 } from 'react';
 import api from '../services/api';
 import AsyncStorage from '@react-native-community/async-storage';
+import { Alert } from 'react-native';
 
 interface IAdress {
   id:string;
@@ -31,6 +32,7 @@ interface AdressContextData {
   loadingAdress: boolean;
 
   getAdress(): Promise<void>;
+  deleteAdress(id: string): Promise<void>;
 
 
 }
@@ -58,23 +60,47 @@ const AdressProvider: React.FC = ({ children }) => {
 
   const getAdress = useCallback(async () => {
 
-    const response = await api.get('/findAdress');
+    try{
+      const response = await api.get('/findAdress');
 
-    const  Adress = response.data;
-    console.log(Adress);
+      const  Adress = response.data;
+      console.log(Adress);
 
-    await AsyncStorage.setItem(
+      await AsyncStorage.setItem(
 
-      '@AppVegetable:adress', JSON.stringify(Adress)
-    );
-    setData(Adress);
+        '@AppVegetable:adress', JSON.stringify(Adress)
+      );
+      setData(Adress);
+    }catch{
+      Alert.alert('Erro, Erro ao carregar os endereços!')
+    }
+
+
+  }, []);
+
+  const deleteAdress = useCallback(async (
+    id
+  ) => {
+    console.log(id);
+    try{
+      await api.post('/deleteAdress', {id})
+      await AsyncStorage.removeItem('@AppVegetable:cart');
+      setData([]);
+      getAdress()
+      ;
+    }catch{
+      Alert.alert('Erro', 'Não foi possível remover o produto!')
+    }
+
+
+
   }, []);
 
 
 
 
   return (
-    <AdressContext.Provider value={{adress: data,  loadingAdress, getAdress}}>
+    <AdressContext.Provider value={{adress: data,  loadingAdress, getAdress, deleteAdress}}>
       {children}
     </AdressContext.Provider>
   );

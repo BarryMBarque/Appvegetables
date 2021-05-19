@@ -110,7 +110,7 @@ const Cart: React.FC = ({navigation, show}: any) => {
             <Container>
               <HeaderContainer>
                 <ArrowContainer onPress={() => goBack()}>
-                  <Icon name="arrow-left" size={30} color="#228B22" />
+                  <Icon name="chevron-left" size={30} color="#228B22" />
                 </ArrowContainer>
 
                 <FruityTexte>Carinho</FruityTexte>
@@ -118,7 +118,7 @@ const Cart: React.FC = ({navigation, show}: any) => {
               <FlatList
                 data={Cart.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))}
                 keyExtractor={(item, index) => item.id}
-                enabled={true}
+                //enabled={true}
                 renderItem={item => (
                   <HeaderChoice
                     onPress={() =>

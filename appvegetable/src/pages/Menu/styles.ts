@@ -21,8 +21,8 @@ export const HeaderContainer = styled.View`
   flex-direction: row;
 
   height: 80px;
-  border: 1px solid;
-  border-color: #cfcfcf;
+  border: 2px solid;
+  border-color: #228b22;
 `;
 export const AvatarContent = styled.TouchableOpacity`
   height: 50px;
@@ -78,8 +78,8 @@ export const ItemContainer = styled.View`
   flex-direction: row;
   justify-content: space-around;
   align-items: flex-start;
-  border-top-width: 1px;
-  border-color: #cfcfcf;
+  border-top-width: 2px;
+  border-color: #228b22;
 
   background-color: #fff;
 `;
@@ -118,8 +118,8 @@ export const ItensContainer = styled.View`
   flex-direction: row;
   height: 300px;
   justify-content: space-between;
-  border-top-width: 1px;
-  border-color: #cfcfcf;
+  border-top-width: 2px;
+  border-color: #228b22;
   margin-top: 0px;
 `;
 

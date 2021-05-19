@@ -9,6 +9,7 @@ import React, {
 } from 'react';
 import api from '../services/api';
 import AsyncStorage from '@react-native-community/async-storage';
+import { Alert } from 'react-native';
 
 interface IOrder {
   id: string;
@@ -66,18 +67,23 @@ const OrderProvider: React.FC = ({ children }) => {
   }, []);
 
   const getOrder = useCallback(async () => {
+    try{
+      const response = await api.get('/orders/getOrders');
 
-    const response = await api.get('/orders/getOrders');
+      const  Order = response.data;
+      console.log(Order);
 
-    const  Order = response.data;
-    console.log(Order);
+      await AsyncStorage.setItem(
 
-    await AsyncStorage.setItem(
+        '@AppVegetable:order', JSON.stringify(Order)
+      );
 
-      '@AppVegetable:order', JSON.stringify(Order)
-    );
+      setData(Order);
+    }catch{
+      Alert.alert('Erro, Eroo ao carregar os endereços!')
+    }
 
-    setData(Order);
+
   }, []);
 
 

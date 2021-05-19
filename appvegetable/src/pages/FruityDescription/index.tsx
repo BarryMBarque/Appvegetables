@@ -38,6 +38,7 @@ import {
   ControlContainer,
   ControlText,
   TotalControle,
+  FruityTexte,
 } from './styles';
 import {Container} from './styles';
 import {StackScreenProps} from '@react-navigation/stack';
@@ -131,8 +132,9 @@ const FruityDescription: React.FC<Props> = ({navigation, route}) => {
             <Container>
               <HeaderContainer>
                 <ArrowContainer onPress={() => goBack()}>
-                  <Icon name="arrow-left" size={30} color="#228B22" />
+                  <Icon name="chevron-left" size={30} color="#228B22" />
                 </ArrowContainer>
+                <FruityTexte>Produto</FruityTexte>
               </HeaderContainer>
               <ScrollView>
                 <FruityContainer>
@@ -155,9 +157,7 @@ const FruityDescription: React.FC<Props> = ({navigation, route}) => {
                   </FruityPriceContainer>
                 </FruityContainer>
                 <DescriptionContainer>
-                  <FruityName>
-                    {route.params.description} Loja Vegetables and Fruits
-                  </FruityName>
+                  <FruityName>{route.params.description}</FruityName>
                 </DescriptionContainer>
                 <CartContainer>
                   <TotalContainer>

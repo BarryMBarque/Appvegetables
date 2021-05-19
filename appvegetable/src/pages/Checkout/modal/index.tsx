@@ -1,6 +1,7 @@
 import React, {cloneElement, useCallback, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
+  Alert,
   Animated,
   Dimensions,
   StyleSheet,
@@ -8,6 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {useAdress} from '../../../hooks/Adress';
 import {useCart} from '../../../hooks/Cart';
 import api from '../../../services/api';
 import {
@@ -70,9 +72,9 @@ const Modal: React.FC<Adress> = ({
   const [price, setPrice] = useState(Number);
   const [qte, setQte] = useState(Number);
   const [loading, setloading] = useState(false);
-  const {getCart, deleteCart} = useCart();
+  const {deleteAdress} = useAdress();
 
-  const openModal = () => {
+  const openModal = useCallback(() => {
     Animated.sequence([
       Animated.timing(statee.container, {
         toValue: 1,
@@ -90,9 +92,9 @@ const Modal: React.FC<Adress> = ({
         useNativeDriver: true,
       }),
     ]).start();
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     Animated.sequence([
       Animated.timing(statee.modal, {
         toValue: height,
@@ -110,13 +112,9 @@ const Modal: React.FC<Adress> = ({
         useNativeDriver: true,
       }),
     ]).start();
-  };
-  // useEffect(() => {
-  //   setPrice(total_price);
-  //   setQte(quantity);
-  // }, []);
+  }, []);
+
   useEffect(() => {
-    console.log(show);
     if (show) {
       openModal();
     } else {
@@ -126,26 +124,46 @@ const Modal: React.FC<Adress> = ({
 
   const handleRemove = useCallback(
     async id => {
-      // setloading(true);
-      deleteCart(id).then(() => {
-        // setloading(false);
+      setloading(true);
+      try {
+        deleteAdress(id).then(() => {
+          setloading(false);
+          Alert.alert('Sucesso!, O endereço foi removido');
+        });
 
-        close;
-      });
+        close();
+      } catch {
+        setloading(false);
+
+        Alert.alert('Erro!, Erro ao remover o endereço tente novamente!');
+        close();
+      }
     },
     [closeModal, setloading],
   );
   const handleCheckout = useCallback(
     async (state, city, cep, district, road, number, complement) => {
-      await api.post('/orders', {
-        state,
-        city,
-        cep,
-        district,
-        road,
-        number,
-        complement,
-      });
+      setloading(true);
+      try {
+        await api.post('/orders', {
+          state,
+          city,
+          cep,
+          district,
+          road,
+          number,
+          complement,
+        });
+        setloading(false);
+        close();
+        Alert.alert('Sucesso!, O pedido foi registrado com sucesso!');
+      } catch {
+        setloading(false);
+        close();
+        Alert.alert(
+          'Erro!, Erro ao registrar o pedido, produto indisponivel, tente novamente!',
+        );
+      }
     },
     [],
   );

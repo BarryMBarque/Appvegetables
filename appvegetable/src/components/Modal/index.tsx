@@ -96,7 +96,7 @@ const Modal: React.FC<Cart> = ({
   useEffect(() => {
     handletotalprice();
   }, [handleRemoveproduct, handleAddproduct]);
-  const openModal = () => {
+  const openModal = useCallback(() => {
     Animated.sequence([
       Animated.timing(state.container, {
         toValue: 1,
@@ -114,9 +114,9 @@ const Modal: React.FC<Cart> = ({
         useNativeDriver: true,
       }),
     ]).start();
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     Animated.sequence([
       Animated.timing(state.modal, {
         toValue: height,
@@ -134,15 +134,13 @@ const Modal: React.FC<Cart> = ({
         useNativeDriver: true,
       }),
     ]).start();
-  };
+  }, []);
   useEffect(() => {
     setPrice(total_price);
     setWeight(quantity);
     setShowModal(show);
   }, []);
   useEffect(() => {
-    console.log(show);
-
     if (show) {
       openModal();
     } else {
@@ -163,6 +161,8 @@ const Modal: React.FC<Cart> = ({
 
         Alert.alert('Sucesso!', 'O carinho foi removido!');
       } catch {
+        setloading(false);
+        close();
         Alert.alert(
           'Erro!',
           'Erro ao remover o o item do carinho tente novamente!',
@@ -181,6 +181,8 @@ const Modal: React.FC<Cart> = ({
         });
         Alert.alert('Sucesso!', 'Carinho atualizado!');
       } catch {
+        setloading(false);
+        close();
         Alert.alert('Erro!', 'Erro à atualizar o carinho tente novamente!');
       }
     },

@@ -15,8 +15,8 @@ import * as Yup from 'yup';
 import getValidationErrors from '../../utils/getValidationErrors';
 import api from '../../services/api';
 
-import Input from '../../components/input';
-import Button from '../../components/button';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
 import {
   ImagePickerResponse,
   launchCamera,
@@ -29,21 +29,38 @@ import {
   UserAvatarButton,
   UserAvatar,
   BackButton,
+  Checkbutton,
+  TextButton,
 } from './styles';
-import {useAuth} from '../../hooks/auth';
+import {useAuth} from '../../hooks/Auth';
 import Icon from 'react-native-vector-icons/Feather';
 
 interface ProfileFormData {
   name: string;
+  cpf: number;
+  phoneNumber: string;
   email: string;
   oldPassword: string;
   password: string;
   passwordConfirmation: string;
 }
+interface User {
+  token: string;
+  user: {
+    id: string;
+    cpf: number;
+    phoneNumber: string;
+    name: string;
+    email: string;
+    avatar_url: string;
+  };
+}
 
 const User: React.FC = () => {
   const navigation = useNavigation();
   const formRef = useRef<FormHandles>(null);
+  const cpfInputRef = useRef<TextInput>(null);
+  const phoneNumberInputRef = useRef<TextInput>(null);
   const emailInputRef = useRef<TextInput>(null);
   const oldPasswordInputRef = useRef<TextInput>(null);
   const passwordInputRef = useRef<TextInput>(null);
@@ -52,11 +69,14 @@ const User: React.FC = () => {
 
   const handleChange = useCallback(
     async (data: ProfileFormData) => {
+      console.log('oi');
       try {
         formRef.current?.setErrors({});
         //lê-se: o schema recebe um objeto com o seguinte formato
         const schema = Yup.object().shape({
           name: Yup.string().required('Nome obrigatório'),
+          cpf: Yup.number().required('Cpf obrigatorio'),
+          phoneNumber: Yup.string(),
           email: Yup.string()
             .required('Email obrigatório')
             .email('Digite um email válido'),
@@ -78,11 +98,22 @@ const User: React.FC = () => {
         await schema.validate(data, {
           abortEarly: false, //para validar todos os campos mesmo que um já tenha dado erro
         });
-        const {name, email, oldPassword, password, passwordConfirmation} = data;
+        const {
+          name,
+          cpf,
+          phoneNumber,
+          email,
+          oldPassword,
+          password,
+          passwordConfirmation,
+        } = data;
 
         const formaData = {
           name,
+          cpf,
+          phoneNumber,
           email,
+
           ...(oldPassword
             ? {
                 oldPassword,
@@ -94,7 +125,7 @@ const User: React.FC = () => {
 
         const response = await api.put('/profile', formaData);
 
-        await updateUser(response.data.user);
+        await updateUser(response.data);
 
         Alert.alert('Alteração realizada com sucesso');
         navigation.goBack();
@@ -121,6 +152,7 @@ const User: React.FC = () => {
         }
 
         const data = new FormData();
+        console.log(response.uri);
 
         data.append('avatar', {
           type: 'image/jpeg',
@@ -130,7 +162,9 @@ const User: React.FC = () => {
 
         api
           .patch('users/avatar', data)
-          .then(apiResponse => updateUser(apiResponse.data.user));
+          .then(apiResponse => updateUser(apiResponse.data));
+
+        Alert.alert('Sucesso, Avatar Atualizado com sucesso!');
       } catch {
         Alert.alert('Erro ao atualizar avatar');
       }
@@ -149,7 +183,7 @@ const User: React.FC = () => {
       <ScrollView keyboardShouldPersistTaps="handled">
         <Container>
           <BackButton onPress={handleGoBack}>
-            <Icon name="chevron-left" size={24} color="#999591" />
+            <Icon name="chevron-left" size={24} color="#228b22" />
           </BackButton>
 
           <UserAvatarButton onPress={handleUpdateAvatar}>
@@ -163,7 +197,9 @@ const User: React.FC = () => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   alignSelf: 'center',
+                  color: '#228b22',
                 }}
+                color="#228b22"
               />
             )}
           </UserAvatarButton>
@@ -179,17 +215,45 @@ const User: React.FC = () => {
               icon="user"
               placeholder="Nome"
               returnKeyType="next"
-              onSubmitEditing={() => emailInputRef.current?.focus()}
+              onSubmitEditing={() => cpfInputRef.current?.focus()}
             />
-
             <Input
+              ref={cpfInputRef}
+              keyboardType="number-pad"
+              autoCorrect={false}
+              autoCapitalize="none"
+              name="cpf"
+              icon="paperclip"
+              placeholder="CPF"
+              returnKeyType="next"
+              onSubmitEditing={() => {
+                phoneNumberInputRef.current?.focus();
+              }}
+            />
+            <Input
+              ref={phoneNumberInputRef}
+              keyboardType="name-phone-pad"
+              autoCorrect={false}
+              autoCapitalize="none"
+              name="phoneNumber"
+              icon="phone"
+              placeholder="Telephone"
+              returnKeyType="next"
+              onSubmitEditing={() => {
+                emailInputRef.current?.focus();
+              }}
+            />
+            <Input
+              autoCorrect={false}
+              autoCapitalize="none"
               keyboardType="email-address"
               name="email"
               icon="mail"
               placeholder="E-mail"
               returnKeyType="next"
-              ref={emailInputRef}
-              onSubmitEditing={() => oldPasswordInputRef.current?.focus()}
+              onSubmitEditing={() => {
+                oldPasswordInputRef.current?.focus();
+              }}
             />
 
             <Input
@@ -225,12 +289,12 @@ const User: React.FC = () => {
               onSubmitEditing={() => formRef.current?.submitForm()}
             />
 
-            <Button
+            <Checkbutton
               onPress={() => {
                 formRef.current?.submitForm();
               }}>
-              Confirmar mudanças
-            </Button>
+              <TextButton>Finalizar pedido</TextButton>
+            </Checkbutton>
           </Form>
         </Container>
       </ScrollView>

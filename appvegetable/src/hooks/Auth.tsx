@@ -12,10 +12,12 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 interface User {
   id: string;
+  cpf:number;
+  phoneNumber: string;
   name: string;
   email: string;
   avatar_url: string;
-  adress_id:string;
+
 }
 interface AuthState {
   token: string;
@@ -81,7 +83,7 @@ const AuthProvider: React.FC = ({ children }) => {
   }, [setData]);
   const updateUser = useCallback(
     async (user: User) => {
-      await AsyncStorage.setItem('@GoBarber:user', JSON.stringify(user));
+      await AsyncStorage.setItem('@AppVegetable:user', JSON.stringify(user));
 
       setData({
         token: data.token,

@@ -2,6 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
+  Alert,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
@@ -47,24 +48,27 @@ const Checkout: React.FC = () => {
   const {goBack} = useNavigation();
   const handleSuscribeOrder = useCallback(
     (id, state, city, CEP, district, road, number, complement) => {
-      setAdresses({
-        id,
-        state,
-        city,
-        CEP,
-        district,
-        road,
-        number,
-        complement,
-      });
-      setModal(true);
+      try {
+        setAdresses({
+          id,
+          state,
+          city,
+          CEP,
+          district,
+          road,
+          number,
+          complement,
+        });
+        setModal(true);
+      } catch {
+        Alert.alert('Erro, erro ao efetuar o checkout!');
+      }
     },
     [],
   );
 
   useEffect(() => {
     getAdress();
-    console.log('=>aqui', adress[0].CEP);
   }, []);
   return (
     <>
@@ -81,7 +85,7 @@ const Checkout: React.FC = () => {
             <Container>
               <HeaderContainer>
                 <ArrowContainer onPress={() => goBack()}>
-                  <Icon name="arrow-left" size={30} color="#228B22" />
+                  <Icon name="chevron-left" size={30} color="#228B22" />
                 </ArrowContainer>
                 <FruityTexte>Checkout</FruityTexte>
               </HeaderContainer>

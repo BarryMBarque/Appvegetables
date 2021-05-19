@@ -10,7 +10,8 @@ export const HeaderContainer = styled.View`
   width: 100%;
   height: 50px;
   justify-content: space-between;
-
+  border: 2px;
+  border-color: #228b22;
   flex-direction: row;
 `;
 export const ArrowContainer = styled.TouchableOpacity`
@@ -72,6 +73,10 @@ export const PromoPrice = styled.Text`
   font-weight: 700;
   font-size: 22px;
 `;
+export const Title = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
 export const FruityPrice = styled.Text`
   color: #5f5f4f;
 
@@ -107,15 +112,15 @@ export const HeaderChoice = styled.TouchableOpacity`
   align-content: center;
   flex-direction: row;
   padding-top: 2px;
-  box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 2px 1px rgba(1, 125, 1, 0.8);
   width: 100%;
-
+  border-color: #228b22;
   margin-top: 4px;
   border-radius: 10px;
   background-color: #fbfdf7;
   border-width: 3px;
 
-  border-color: rgba(22, 125, 22, 0.2);
+  border-color: rgba(1, 125, 1, 0.8);
 `;
 export const HeaderChoiceText = styled.Text`
   align-self: center;

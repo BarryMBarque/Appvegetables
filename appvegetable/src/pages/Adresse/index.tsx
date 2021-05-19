@@ -56,20 +56,6 @@ const Adress: React.FC = () => {
 
   const handleSignUp = useCallback(async (data: AdressFormData) => {
     try {
-      // formRef.current?.setErrors({});
-      // const schema = Yup.object().shape({
-      //   name: Yup.string().required('Nome obrigatório'),
-      //   email: Yup.string()
-      //     .required('E-mail obrigatório')
-      //     .email('Digite um e-mail válido'),
-      //   password: Yup.string().min(6, 'No minimo 6 dígitos'),
-      // });
-
-      // await schema.validate(data, {
-      //   abortEarly: false,
-      // });
-
-      console.log(data);
       const adresse = await api.post('/adresses', {
         state: data.state,
         city: data.city,
@@ -79,23 +65,8 @@ const Adress: React.FC = () => {
         number: data.number,
         complement: data.complement,
       });
-      console.log(adresse);
-      const adress_id = adresse.data.id as string;
-      //const user = await api.patch('/users/adress', {adress_id});
+      Alert.alert('Sucesso!', 'O Enderecço foi cadastrado!');
       getAdress();
-
-      // history.push('/');
-      // Alert.alert(
-      //   'Cadastro realizado',
-      //   'você já pode fazer seu logon no App Vegetable',
-      // );
-      // navigation.navigate('SignIn');
-
-      // addToast({
-      //   type: 'success',
-      //   title: 'Cadastro realizado',
-      //   description: 'você já pode fazer seu logon no GoBarber',
-      // });
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
@@ -103,14 +74,9 @@ const Adress: React.FC = () => {
       }
       Alert.alert(
         'Erro no  cadastro',
-        'Ocorreu um erro ao fazer o cadastro, tente novamente!',
+        'Ocorreu um erro ao fazer o cadastro do endereço, tente novamente!',
       );
       return;
-      //addToast({
-      //  type: 'error',
-      //  title: 'Erro no  cadastro',
-      //  description: 'Ocorreu um erro ao fazer o cadastro, tente novamente!',
-      // });
     }
   }, []);
   return (
@@ -122,9 +88,9 @@ const Adress: React.FC = () => {
         <ScrollView>
           <HeaderContainer>
             <ArrowContainer onPress={() => goBack()}>
-              <Icon name="arrow-left" size={30} color="#228B22" />
+              <Icon name="chevron-left" size={30} color="#228B22" />
             </ArrowContainer>
-            <FruityTexte>Fruitas</FruityTexte>
+            <FruityTexte>Endereço</FruityTexte>
           </HeaderContainer>
           <Container>
             <View>
@@ -138,7 +104,7 @@ const Adress: React.FC = () => {
                 placeholder="Estado"
                 returnKeyType="next"
                 onSubmitEditing={() => {
-                  stateInputRef.current?.focus();
+                  cityInputRef.current?.focus();
                 }}
               />
               <Input
@@ -148,7 +114,7 @@ const Adress: React.FC = () => {
                 placeholder="Cdade"
                 returnKeyType="next"
                 onSubmitEditing={() => {
-                  cityInputRef.current?.focus();
+                  cepInputRef.current?.focus();
                 }}
               />
               <Input
@@ -161,7 +127,7 @@ const Adress: React.FC = () => {
                 placeholder="CEP"
                 returnKeyType="next"
                 onSubmitEditing={() => {
-                  cepInputRef.current?.focus();
+                  districtInputRef.current?.focus();
                 }}
               />
               <Input
@@ -172,7 +138,7 @@ const Adress: React.FC = () => {
                 placeholder="Bairro"
                 returnKeyType="next"
                 onSubmitEditing={() => {
-                  districtInputRef.current?.focus();
+                  roadInputRef.current?.focus();
                 }}
               />
               <Input
@@ -183,7 +149,7 @@ const Adress: React.FC = () => {
                 placeholder="Rua"
                 returnKeyType="next"
                 onSubmitEditing={() => {
-                  roadInputRef.current?.focus();
+                  numberInputRef.current?.focus();
                 }}
               />
 
@@ -197,7 +163,7 @@ const Adress: React.FC = () => {
                 placeholder="Numero da rua"
                 returnKeyType="next"
                 onSubmitEditing={() => {
-                  numberInputRef.current?.focus();
+                  complementInputRef.current?.focus();
                 }}
               />
               <Input
@@ -208,7 +174,7 @@ const Adress: React.FC = () => {
                 placeholder="complemento"
                 returnKeyType="next"
                 onSubmitEditing={() => {
-                  complementInputRef.current?.focus();
+                  formRef.current?.submitForm();
                 }}
               />
             </Form>

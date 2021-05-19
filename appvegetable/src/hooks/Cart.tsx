@@ -10,6 +10,7 @@ import React, {
 import api from '../services/api';
 import AsyncStorage from '@react-native-community/async-storage';
 import { useAuth } from './Auth';
+import { Alert } from 'react-native';
 
 interface Cart {
   id: string;
@@ -85,7 +86,11 @@ const CartProvider: React.FC = ({ children }) => {
     await AsyncStorage.setItem(
       '@AppVegetable:cart', JSON.stringify(cart)
     );
-    setData(cart);
+    if(!data){
+      setData([]);
+    }else{
+      setData(cart);
+    }
     let total = '';
     let tot =0;
     cart.map((cart: Cart) => {
@@ -111,6 +116,7 @@ const CartProvider: React.FC = ({ children }) => {
     quantity,
     val_unit,
   }) => {
+
     await api.post('/carts',{
       product_id,
       quantity,
@@ -138,10 +144,16 @@ const CartProvider: React.FC = ({ children }) => {
   const deleteCart = useCallback(async (
     id
   ) => {
-    await api.post('/deleteCarts', {id})
-    await AsyncStorage.removeItem('@AppVegetable:cart');
-    setData([]);
-    getCart();
+    console.log(id);
+    try{
+      await api.post('/deleteCarts', {id})
+      await AsyncStorage.removeItem('@AppVegetable:cart');
+      setData([]);
+      getCart();
+    }catch{
+      Alert.alert('Erro', 'Não foi possível remover o produto!')
+    }
+
 
 
   }, []);

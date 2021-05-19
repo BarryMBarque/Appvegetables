@@ -8,7 +8,8 @@ export const HeaderContainer = styled.View`
   justify-content: space-between;
   width: 100%;
   height: 50px;
-  border-bottom-width: 1px;
+  border-bottom-width: 2px;
+  border-color: rgba(1, 125, 2, 0.5);
   flex-direction: row;
 `;
 export const ArrowContainer = styled.TouchableOpacity`
@@ -20,21 +21,29 @@ export const ArrowContainer = styled.TouchableOpacity`
 `;
 export const FruityContainer = styled.View`
   flex: 1;
+  width: 100%;
   align-items: center;
 `;
 export const FruityImage = styled.Image`
   height: 150px;
   width: 150px;
 `;
+export const FruityTexte = styled.Text`
+  align-self: center;
+  color: #021000;
+  padding-right: 5px;
+  font-weight: 700;
+  font-size: 22px;
+`;
 export const FruityPriceContainer = styled.View`
   height: 90px;
-
+  width: 400px;
   flex-direction: row;
   justify-content: space-between;
   align-self: stretch;
   border-bottom-width: 3px;
 
-  border-color: rgba(50, 50, 22, 0.2);
+  border-color: rgba(1, 125, 2, 0.5);
 `;
 export const FruityNameContainer = styled.View`
   width: 200px;
@@ -47,11 +56,11 @@ export const FruityName = styled.Text`
 `;
 export const PromoPercentContainer = styled.TouchableOpacity`
   align-items: center;
-  margin-top: 5px;
-  margin-right: 10px;
+  margin-top: 0px;
+  margin-right: 15px;
   height: 30px;
   width: 40px;
-  background-color: #e1d201;
+  background-color: #ff4040;
 `;
 export const PriceContainer = styled.View`
   height: 50px;
@@ -60,21 +69,20 @@ export const PriceContainer = styled.View`
 `;
 export const DescriptionContainer = styled.View`
   height: 50px;
-
+  width: 90%;
   margin-top: 40px;
-
-  box-shadow: 0px 3px 3px rgba(125, 125, 125, 0.3);
+  box-shadow: 0px 3px 3px rgba(1, 125, 1, 0.3);
 `;
 export const CartContainer = styled.View`
   height: 200px;
-
+  width: 90%;
   margin-left: 10px;
   margin-right: 10px;
-
+  align-self: center;
   justify-content: space-between;
   margin-top: 40px;
   border-top-width: 2px;
-  border-color: rgba(120, 110, 130, 0.5);
+  border-color: rgba(1, 125, 2, 0.9);
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   border-right-width: 2px;
@@ -126,12 +134,12 @@ export const TotalControle = styled.Text`
 export const PromoPrice = styled.Text`
   color: #228b22;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 18px;
 
   align-self: center;
 `;
 export const FruityPrice = styled.Text`
-  color: #ccc;
+  color: #202020;
   font-size: 16px;
   margin-left: 10px;
   text-decoration: line-through;

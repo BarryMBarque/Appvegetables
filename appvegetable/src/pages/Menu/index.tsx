@@ -94,7 +94,6 @@ const Menu: React.FC = ({navigation, route}: any) => {
 
   const handleSearch = useCallback(async (data: MenuData) => {
     try {
-      // console.warn('oii');
       formRef.current?.setErrors({});
       const schema = Yup.object().shape({
         searchWord: Yup.string(),

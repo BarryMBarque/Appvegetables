@@ -169,7 +169,9 @@ const Checkout: React.FC = () => {
                 </ArrowContainer>
                 <FruityTexte>Checkout</FruityTexte>
               </HeaderContainer>
-              <Text>Adicone um indereço</Text>
+              <Button onPress={() => navigate('Adress')}>
+                Adicionar Endereço
+              </Button>
             </Container>
           </SafeAreaView>
         </KeyboardAvoidingView>

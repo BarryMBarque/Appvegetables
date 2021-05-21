@@ -16,6 +16,11 @@ export const Title = styled.Text`
 
 export const UserAvatarButton = styled.TouchableOpacity`
   margin-top: 20px;
+  background-color: #228b22;
+  height: 130px;
+  width: 130px;
+  border-radius: 130px;
+  align-self: center;
 `;
 
 export const UserAvatar = styled.Image`
@@ -26,7 +31,7 @@ export const UserAvatar = styled.Image`
 `;
 
 export const BackButton = styled.TouchableOpacity`
-  margin-top: 40px;
+  margin-top: 10px;
 `;
 export const Checkbutton = styled.TouchableOpacity`
   width: 100%;
@@ -40,4 +45,19 @@ export const Checkbutton = styled.TouchableOpacity`
 export const TextButton = styled.Text`
   color: #fff;
   font-size: 18px;
+`;
+export const HeaderText = styled.Text`
+  font-size: 20px;
+  color: #202020;
+  margin-top: 10px;
+`;
+export const HeaderContainer = styled.View`
+  justify-content: space-between;
+  width: 100%;
+  height: 50px;
+  flex: 1;
+  margin-top: 5px;
+  border-bottom-width: 2px;
+  border-color: rgba(1, 125, 2, 0.5);
+  flex-direction: row;
 `;

@@ -31,6 +31,8 @@ import {
   BackButton,
   Checkbutton,
   TextButton,
+  HeaderContainer,
+  HeaderText,
 } from './styles';
 import {useAuth} from '../../hooks/Auth';
 import Icon from 'react-native-vector-icons/Feather';
@@ -65,11 +67,10 @@ const User: React.FC = () => {
   const oldPasswordInputRef = useRef<TextInput>(null);
   const passwordInputRef = useRef<TextInput>(null);
   const confirmPasswordInputRef = useRef<TextInput>(null);
-  const {user, updateUser} = useAuth();
+  const {user, updateUser, signOut} = useAuth();
 
   const handleChange = useCallback(
     async (data: ProfileFormData) => {
-      console.log('oi');
       try {
         formRef.current?.setErrors({});
         //lê-se: o schema recebe um objeto com o seguinte formato
@@ -82,13 +83,13 @@ const User: React.FC = () => {
             .email('Digite um email válido'),
           oldPassword: Yup.string(),
           password: Yup.string().when('oldPassword', {
-            is: (val: string | any[]) => !!val.length,
+            is: (val: string) => !!val.length,
             then: Yup.string().required('Campo obrigatório'),
             otherwise: Yup.string(),
           }),
           passwordConfirmation: Yup.string()
-            .when('oldPassword', {
-              is: (val: string | any[]) => !!val.length,
+            .when('password', {
+              is: (val: string) => !!val.length,
               then: Yup.string().required('Campo obrigatório'),
               otherwise: Yup.string(),
             })
@@ -99,12 +100,12 @@ const User: React.FC = () => {
           abortEarly: false, //para validar todos os campos mesmo que um já tenha dado erro
         });
         const {
-          name,
           cpf,
-          phoneNumber,
           email,
+          name,
           oldPassword,
           password,
+          phoneNumber,
           passwordConfirmation,
         } = data;
 
@@ -113,27 +114,27 @@ const User: React.FC = () => {
           cpf,
           phoneNumber,
           email,
-
           ...(oldPassword
             ? {
                 oldPassword,
                 password,
-                passwordConfirmation,
               }
             : {}),
         };
 
         const response = await api.put('/profile', formaData);
-
         await updateUser(response.data);
 
         Alert.alert('Alteração realizada com sucesso');
         navigation.goBack();
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
-          formRef.current?.setErrors(getValidationErrors(err));
+          const errors = getValidationErrors(err);
+
+          formRef.current?.setErrors(errors);
+          return;
         } else {
-          Alert.alert('Erro ao atualizar perfil');
+          Alert.alert(`Erro ao atualizar perfil,${err}`);
         }
       }
     },
@@ -175,32 +176,52 @@ const User: React.FC = () => {
     navigation.goBack();
   }, [navigation]);
 
+  const handleLogOut = useCallback(() => {
+    signOut();
+  }, [navigation]);
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       style={{flex: 1}}
       enabled>
       <ScrollView keyboardShouldPersistTaps="handled">
-        <Container>
+        <HeaderContainer>
           <BackButton onPress={handleGoBack}>
             <Icon name="chevron-left" size={24} color="#228b22" />
           </BackButton>
-
+          <HeaderText>Configuração</HeaderText>
+          <BackButton onPress={handleLogOut}>
+            <Icon name="power" size={24} color="#228b22" />
+          </BackButton>
+        </HeaderContainer>
+        <Container>
           <UserAvatarButton onPress={handleUpdateAvatar}>
             {user.avatar_url ? (
               <UserAvatar source={{uri: user.avatar_url}} />
             ) : (
-              <Icon
-                name="user"
-                size={120}
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  alignSelf: 'center',
-                  color: '#228b22',
-                }}
-                color="#228b22"
-              />
+              <>
+                <Icon
+                  name="user"
+                  size={120}
+                  style={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    alignSelf: 'center',
+                    color: '#fff',
+                  }}
+                />
+                <Icon
+                  name="camera"
+                  size={24}
+                  style={{
+                    alignItems: 'center',
+                    alignSelf: 'center',
+                    color: '#228b22',
+                    backgroundColor: '#fff',
+                  }}
+                />
+              </>
             )}
           </UserAvatarButton>
 
@@ -237,7 +258,7 @@ const User: React.FC = () => {
               autoCapitalize="none"
               name="phoneNumber"
               icon="phone"
-              placeholder="Telephone"
+              placeholder="Telefone"
               returnKeyType="next"
               onSubmitEditing={() => {
                 emailInputRef.current?.focus();
@@ -293,7 +314,7 @@ const User: React.FC = () => {
               onPress={() => {
                 formRef.current?.submitForm();
               }}>
-              <TextButton>Finalizar pedido</TextButton>
+              <TextButton>Confirmar</TextButton>
             </Checkbutton>
           </Form>
         </Container>

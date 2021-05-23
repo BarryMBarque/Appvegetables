@@ -9,7 +9,7 @@ export const Container = styled.View`
   justify-content: space-between;
 `;
 export const AdressContainer = styled.View`
-  width: 250px;
+  max-width: 500px;
   height: 125px;
   margin-left: 5px;
   justify-content: center;

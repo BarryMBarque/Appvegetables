@@ -44,15 +44,14 @@ interface Product {
   cart_id?: string;
   picture_url: string;
 }
-const Fruity: React.FC = ({navigation}: any) => {
+const Vegetable: React.FC = ({navigation}: any) => {
   const {product, loadingProduct} = useProduct();
   const [products, setProducts] = useState<Product[]>();
   const {goBack} = useNavigation();
   const handleProduct = useCallback(async () => {
-    const name = 'Fruits';
+    const name = 'Vegetables';
     const responseCategories = await api.post('/findCategory', {name});
     const categoryProduct_id = responseCategories.data.id;
-
     if (categoryProduct_id) {
       const responseProduct = await api.post<Product[]>(
         '/getAllProductsByCategory',
@@ -86,7 +85,7 @@ const Fruity: React.FC = ({navigation}: any) => {
                 <ArrowContainer onPress={() => goBack()}>
                   <Icon name="chevron-left" size={30} color="#228B22" />
                 </ArrowContainer>
-                <FruityTexte>Fruitas</FruityTexte>
+                <FruityTexte>Legumes</FruityTexte>
               </HeaderContainer>
               <FlatList
                 data={product}
@@ -151,4 +150,4 @@ const Fruity: React.FC = ({navigation}: any) => {
     </>
   );
 };
-export default Fruity;
+export default Vegetable;

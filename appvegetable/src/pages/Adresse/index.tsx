@@ -111,7 +111,7 @@ const Adress: React.FC = () => {
                 autoCapitalize="words"
                 name="city"
                 icon="user"
-                placeholder="Cdade"
+                placeholder="Cidade"
                 returnKeyType="next"
                 onSubmitEditing={() => {
                   cepInputRef.current?.focus();

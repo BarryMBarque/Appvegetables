@@ -115,21 +115,17 @@ const Checkout: React.FC = () => {
                       </ArrowContainer>
                       <AdressContainer>
                         <RoadText>
-                          {item.item.road},{item.item.number},{' '}
+                          {item.item.road}-{item.item.number}-{' '}
                           {item.item.district}
                         </RoadText>
 
                         <StateCityText>
-                          {item.item.city}-{item.item.state}-{item.item.CEP}
+                          {item.item.city}-{item.item.state}
+                          {'\n'}
+                          {item.item.CEP}
                         </StateCityText>
 
                         <ComplementText>{item.item.complement}</ComplementText>
-
-                        {/* <FruityWeight></FruityWeight>
-                  <FruityPriceContainer>
-                    <PromoPrice>$</PromoPrice>
-                    <FruityPrice>$</FruityPrice>
-                  </FruityPriceContainer> */}
                       </AdressContainer>
                     </AdressBox>
                   </HeaderChoice>

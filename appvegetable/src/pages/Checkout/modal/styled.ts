@@ -26,6 +26,15 @@ export const ButtonUpdate = styled.TouchableOpacity`
   align-items: center;
   margin-top: 30px;
 `;
+export const ButtonCancel = styled.TouchableOpacity`
+  width: 30%;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #ff9000;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+`;
 export const ButtonRemove = styled.TouchableOpacity`
   width: 30%;
   height: 40px;

@@ -1,3 +1,4 @@
+import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import React, {cloneElement, useCallback, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
@@ -11,8 +12,10 @@ import {
 } from 'react-native';
 import {useAdress} from '../../../hooks/Adress';
 import {useCart} from '../../../hooks/Cart';
+import {useOrder} from '../../../hooks/Order';
 import api from '../../../services/api';
 import {
+  ButtonCancel,
   ButtonContainer,
   ButtonRemove,
   ButtonUpdate,
@@ -69,10 +72,11 @@ const Modal: React.FC<Adress> = ({
     container: new Animated.Value(height),
     modal: new Animated.Value(height),
   });
-  const [price, setPrice] = useState(Number);
-  const [qte, setQte] = useState(Number);
+
   const [loading, setloading] = useState(false);
   const {deleteAdress} = useAdress();
+  const {getOrder} = useOrder();
+  const {getCart, updatedOrder} = useCart();
 
   const openModal = useCallback(() => {
     Animated.sequence([
@@ -139,7 +143,7 @@ const Modal: React.FC<Adress> = ({
         close();
       }
     },
-    [closeModal, setloading],
+    [closeModal, setloading, deleteAdress, close],
   );
   const handleCheckout = useCallback(
     async (state, city, cep, district, road, number, complement) => {
@@ -155,7 +159,12 @@ const Modal: React.FC<Adress> = ({
           complement,
         });
         setloading(false);
-        close();
+        getOrder();
+        updatedOrder();
+        getCart().then(() => {
+          close();
+        });
+
         Alert.alert('Sucesso!, O pedido foi registrado com sucesso!');
       } catch {
         setloading(false);
@@ -165,11 +174,9 @@ const Modal: React.FC<Adress> = ({
         );
       }
     },
-    [],
+    [setloading, getCart, getOrder, close],
   );
-  // useEffect(() => {
-  //   getCart();
-  // }, [handleRemove, handleUpdate]);
+
   return loading ? (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <ActivityIndicator size="large" color="#228b22" />
@@ -191,31 +198,6 @@ const Modal: React.FC<Adress> = ({
           },
         ]}>
         <IndicatorContainer />
-
-        {/* <HeaderChoice>
-          <FruityPin>
-            <FruityContainer source={{uri: picture_url}} />
-          </FruityPin>
-
-          <FruityDescriptionContainer>
-            <FruityDescriptionText>{name}</FruityDescriptionText>
-
-            <FruityPriceContainer>
-              <PromoPrice>${price}</PromoPrice>
-            </FruityPriceContainer>
-          </FruityDescriptionContainer>
-          <QuantityContainer>
-            <QuantityAdd>
-              <QuantityButtonText>+</QuantityButtonText>
-            </QuantityAdd>
-            <Quantity>
-              <QuantityText>{qte}</QuantityText>
-            </Quantity>
-            <QuantityRemove>
-              <QuantityButtonText>-</QuantityButtonText>
-            </QuantityRemove>
-          </QuantityContainer>
-        </HeaderChoice> */}
         <ButtonContainer>
           <ButtonRemove onPress={() => handleRemove(id)}>
             <TextButton>Remover</TextButton>
@@ -234,9 +216,9 @@ const Modal: React.FC<Adress> = ({
             }>
             <TextButton>Checkout</TextButton>
           </ButtonUpdate>
-          <ButtonUpdate onPress={close}>
+          <ButtonCancel onPress={close}>
             <TextButton>Cancelar</TextButton>
-          </ButtonUpdate>
+          </ButtonCancel>
         </ButtonContainer>
       </Animated.View>
     </Animated.View>

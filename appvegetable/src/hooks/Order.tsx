@@ -71,7 +71,7 @@ const OrderProvider: React.FC = ({ children }) => {
       const response = await api.get('/orders/getOrders');
 
       const  Order = response.data;
-      console.log(Order);
+
 
       await AsyncStorage.setItem(
 

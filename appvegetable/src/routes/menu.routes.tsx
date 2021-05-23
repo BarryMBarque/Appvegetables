@@ -8,6 +8,7 @@ import FruityDescription from '../pages/FruityDescription';
 import Checkout from '../pages/Checkout';
 import Adress from '../pages/Adresse';
 import UserConfiguration from '../pages/user';
+import Vegetable from '../pages/vegetable';
 const Menu = createStackNavigator();
 
 const MenuRoutes: React.FC = () => (
@@ -20,6 +21,7 @@ const MenuRoutes: React.FC = () => (
     <Menu.Screen name="Menu" component={MenuPrincipal} />
     <Menu.Screen name="User" component={UserConfiguration} />
     <Menu.Screen name="Fruity" component={Fruity} />
+    <Menu.Screen name="Vegetable" component={Vegetable} />
     <Menu.Screen name="Checkout" component={Checkout} />
     <Menu.Screen name="Adress" component={Adress} />
     <Menu.Screen name="FruityDescription" component={FruityDescription} />

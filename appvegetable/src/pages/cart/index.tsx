@@ -93,7 +93,7 @@ const Cart: React.FC = ({navigation, show}: any) => {
 
   useEffect(() => {
     getCart();
-  }, []);
+  }, [modal]);
 
   return (
     <>

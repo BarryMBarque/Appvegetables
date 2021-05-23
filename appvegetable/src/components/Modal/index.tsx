@@ -12,6 +12,7 @@ import {
 import {useCart} from '../../hooks/Cart';
 import api from '../../services/api';
 import {
+  ButtonCancel,
   ButtonContainer,
   ButtonRemove,
   ButtonUpdate,
@@ -70,7 +71,7 @@ const Modal: React.FC<Cart> = ({
     modal: new Animated.Value(height),
   });
   const [price, setPrice] = useState(Number);
-  const [showModal, setShowModal] = useState(false);
+  //const [showModal, setShowModal] = useState(false);
   const [loading, setloading] = useState(false);
   const {getCart, deleteCart, updateItemCart} = useCart();
   const [weight, setWeight] = useState(quantity);
@@ -136,12 +137,12 @@ const Modal: React.FC<Cart> = ({
     ]).start();
   }, []);
   useEffect(() => {
-    setPrice(total_price);
-    setWeight(quantity);
-    setShowModal(show);
+    //setShowModal(show);
   }, []);
   useEffect(() => {
     if (show) {
+      setPrice(total_price);
+      setWeight(quantity);
       openModal();
     } else {
       closeModal();
@@ -244,9 +245,9 @@ const Modal: React.FC<Cart> = ({
           <ButtonUpdate onPress={() => handleUpdate(id, weight, price)}>
             <TextButton>Atualizar</TextButton>
           </ButtonUpdate>
-          <ButtonUpdate onPress={close}>
+          <ButtonCancel onPress={close}>
             <TextButton>Cancelar</TextButton>
-          </ButtonUpdate>
+          </ButtonCancel>
         </ButtonContainer>
       </Animated.View>
     </Animated.View>

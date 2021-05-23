@@ -67,6 +67,7 @@ import {useProduct} from '../../hooks/Product';
 import {Avatar} from 'react-native-elements';
 import {useAdress} from '../../hooks/Adress';
 import {useCart} from '../../hooks/Cart';
+import {useOrder} from '../../hooks/Order';
 interface Iproducts {
   id: string;
   name: string;
@@ -90,6 +91,7 @@ const Menu: React.FC = ({navigation, route}: any) => {
   const {user, loading} = useAuth();
   const {getAdress} = useAdress();
   const {getCart} = useCart();
+  const {getOrder} = useOrder();
   const {product, loadingProduct} = useProduct();
 
   const handleSearch = useCallback(async (data: MenuData) => {
@@ -113,6 +115,11 @@ const Menu: React.FC = ({navigation, route}: any) => {
         'Ocorreu um erro ao fazer login, cheque as credenciais!',
       );
     }
+  }, []);
+  useEffect(() => {
+    getAdress();
+    getCart();
+    getOrder();
   }, []);
 
   return (
@@ -177,13 +184,9 @@ const Menu: React.FC = ({navigation, route}: any) => {
                 <ItemImage source={ImgFruits} />
                 <ItemName>Fruitas</ItemName>
               </Item>
-              <Item>
+              <Item onPress={() => navigation.navigate('Vegetable')}>
                 <ItemImage source={ImgLegumes} />
                 <ItemName>Legumes</ItemName>
-              </Item>
-              <Item>
-                <ItemImage source={ImgOeuf} />
-                <ItemName>Ovo</ItemName>
               </Item>
             </ItemContainer>
             <OfferContainer>
@@ -253,10 +256,6 @@ const Menu: React.FC = ({navigation, route}: any) => {
               </SearchContainer>
               <Icon name="bell" size={30} color="#228B22" />
             </HeaderContainer>
-            {/* <ScrollView
-              keyboardShouldPersistTaps="handled"
-              contentContainerStyle={{flex: 1}}
-              showsVerticalScrollIndicator> */}
             <AvatarContainer>
               <AvatarContent>
                 {user.avatar_url ? (

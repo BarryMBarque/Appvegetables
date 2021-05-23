@@ -17,6 +17,15 @@ export const ButtonContainer = styled.View`
   align-items: center;
   margin-top: 60px;
 `;
+export const ButtonCancel = styled.TouchableOpacity`
+  width: 30%;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #ff9000;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+`;
 export const ButtonUpdate = styled.TouchableOpacity`
   width: 30%;
   height: 40px;

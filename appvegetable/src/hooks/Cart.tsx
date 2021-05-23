@@ -45,6 +45,7 @@ interface CartContextData {
   Cart: Cart[];
   loadingCart: boolean;
   total: string;
+  updatedOrder(): Promise<void>;
   getCart(): Promise<void>;
   deleteCart(id: string): Promise<void>
   AddCart({
@@ -64,6 +65,7 @@ const CartProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<Cart[]>({} as Cart[]);
   const [ total, Settotal ] = useState('');
   const [loadingCart, setLoading] = useState(true);
+  const [updatedorder, setUpdateOrder] = useState(false);
 
   useEffect(() => {
     async function LoadStorageData(): Promise<void> {
@@ -109,7 +111,13 @@ const CartProvider: React.FC = ({ children }) => {
     setLoading(false);
 
   }, [setData]);
+  const updatedOrder = useCallback(async()=>{
+    setUpdateOrder(true);
+    await AsyncStorage.removeItem('@AppVegetable:cart');
+    setData([]);
+    getCart();
 
+  },[getCart, setData, setUpdateOrder ])
 
   const AddCart = useCallback(async ({
     product_id,
@@ -164,7 +172,7 @@ const CartProvider: React.FC = ({ children }) => {
 
   },[AddCart, deleteCart])
   return (
-    <CartContext.Provider value={{Cart: data, loadingCart, total ,getCart,AddCart, deleteCart, updateItemCart}}>
+    <CartContext.Provider value={{Cart: data, loadingCart, total ,getCart,AddCart, deleteCart, updateItemCart,updatedOrder}}>
       {children}
     </CartContext.Provider>
   );

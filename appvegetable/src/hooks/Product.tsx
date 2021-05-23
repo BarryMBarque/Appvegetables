@@ -24,10 +24,7 @@ interface Product {
   cart_id?: string;
   picture_url: string;
 }
-interface ProductState {
 
-  Product: Product[];
-}
 
 
 interface ProductContextData {

@@ -8,6 +8,7 @@ import Fruity from '../pages/Fruity';
 import FruityDescription from '../pages/FruityDescription';
 import Checkout from '../pages/Checkout';
 import Adress from '../pages/Adresse';
+import Vegetable from '../pages/vegetable';
 const App = createStackNavigator();
 
 const AppRoutes: React.FC = () => (
@@ -17,6 +18,7 @@ const AppRoutes: React.FC = () => (
       cardStyle: {backgroundColor: '#fff'},
     }}>
     <App.Screen name="Fruity" component={Fruity} />
+    <App.Screen name="Vegetable" component={Vegetable} />
     <App.Screen name="FruityDescription" component={FruityDescription} />
     <App.Screen name="Checkout" component={Checkout} />
     <App.Screen name="Adress" component={Adress} />

@@ -17,7 +17,7 @@ import Icone from 'react-native-vector-icons/MaterialCommunityIcons';
 import Img from '../../assets/pp.jpg';
 import ImgFruits from '../../assets/fruits.jpg';
 import ImgLegumes from '../../assets/legumes.png';
-import ImgOeuf from '../../assets/oeuf.jpg';
+
 import {Form} from '@unform/mobile';
 import {FormHandles} from '@unform/core';
 import * as Yup from 'yup';
@@ -301,13 +301,9 @@ const Menu: React.FC = ({navigation, route}: any) => {
                 <ItemImage source={ImgFruits} />
                 <ItemName>Fruitas</ItemName>
               </Item>
-              <Item>
+              <Item onPress={() => navigation.navigate('Vegetable')}>
                 <ItemImage source={ImgLegumes} />
                 <ItemName>Legumes</ItemName>
-              </Item>
-              <Item>
-                <ItemImage source={ImgOeuf} />
-                <ItemName>Ovo</ItemName>
               </Item>
             </ItemContainer>
             <OfferContainer>

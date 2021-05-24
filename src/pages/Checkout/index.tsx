@@ -59,6 +59,7 @@ const Checkout: React.FC = () => {
           number,
           complement,
         });
+
         setModal(true);
       } catch {
         Alert.alert('Erro, erro ao efetuar o checkout!');

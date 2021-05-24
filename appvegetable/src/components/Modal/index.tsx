@@ -170,7 +170,7 @@ const Modal: React.FC<Cart> = ({
         );
       }
     },
-    [closeModal, setloading, loading],
+    [setloading, deleteCart, close],
   );
   const handleUpdate = useCallback(
     async (id, quantity, total_price) => {
@@ -187,7 +187,7 @@ const Modal: React.FC<Cart> = ({
         Alert.alert('Erro!', 'Erro à atualizar o carinho tente novamente!');
       }
     },
-    [closeModal],
+    [updateItemCart, setloading, close],
   );
   useEffect(() => {
     getCart();

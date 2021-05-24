@@ -53,6 +53,7 @@ const Adress: React.FC = () => {
 
   const {goBack} = useNavigation();
   const {getAdress, adress} = useAdress();
+  const {navigate} = useNavigation();
 
   const handleSignUp = useCallback(async (data: AdressFormData) => {
     try {
@@ -67,6 +68,7 @@ const Adress: React.FC = () => {
       });
       Alert.alert('Sucesso!', 'O Enderecço foi cadastrado!');
       getAdress();
+      navigate('Checkout');
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);

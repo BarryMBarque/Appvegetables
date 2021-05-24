@@ -164,7 +164,7 @@ const CartProvider: React.FC = ({ children }) => {
 
 
 
-  }, []);
+  }, [setData, getCart]);
 
   useEffect(()=>{
 

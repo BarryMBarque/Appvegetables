@@ -96,9 +96,6 @@ const User: React.FC = () => {
             .oneOf([Yup.ref('password'), undefined], 'Confirmação incorreta'),
         });
 
-        await schema.validate(data, {
-          abortEarly: false, //para validar todos os campos mesmo que um já tenha dado erro
-        });
         const {
           cpf,
           email,
@@ -116,13 +113,14 @@ const User: React.FC = () => {
           email,
           ...(oldPassword
             ? {
-                oldPassword,
+                old_password: oldPassword,
                 password,
+                password_confirmation: passwordConfirmation,
               }
             : {}),
         };
 
-        const response = await api.put('/profile', formaData);
+        const response = await api.put('/profile', data);
         await updateUser(response.data);
 
         Alert.alert('Alteração realizada com sucesso');
@@ -170,7 +168,7 @@ const User: React.FC = () => {
         Alert.alert('Erro ao atualizar avatar');
       }
     });
-  }, [updateUser, user.id]);
+  }, [updateUser, user.id, launchCamera]);
 
   const handleGoBack = useCallback(() => {
     navigation.goBack();

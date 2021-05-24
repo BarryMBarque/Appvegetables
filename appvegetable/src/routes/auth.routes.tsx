@@ -10,6 +10,8 @@ import Checkout from '../pages/Checkout';
 import Adress from '../pages/Adresse';
 import UserConfiguration from '../pages/user';
 import Vegetable from '../pages/vegetable';
+import SendPassword from '../pages/SendPasswordRecovery';
+import ResetPassword from '../pages/PasswordRecovery';
 const Auth = createStackNavigator();
 
 const AuthRoutes: React.FC = () => (
@@ -20,6 +22,8 @@ const AuthRoutes: React.FC = () => (
     }}>
     <Auth.Screen name="SignIn" component={SignIn} />
     <Auth.Screen name="SignUp" component={SignUp} />
+    <Auth.Screen name="SendPassword" component={SendPassword} />
+    <Auth.Screen name="ResetPassword" component={ResetPassword} />
     <Auth.Screen name="Fruity" component={Fruity} />
     <Auth.Screen name="Vegetable" component={Vegetable} />
     <Auth.Screen name="User" component={UserConfiguration} />

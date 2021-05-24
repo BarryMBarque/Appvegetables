@@ -45,8 +45,9 @@ interface Product {
   picture_url: string;
 }
 const Vegetable: React.FC = ({navigation}: any) => {
-  const {product, loadingProduct} = useProduct();
+  const {product} = useProduct();
   const [products, setProducts] = useState<Product[]>();
+  const [loading, loadingProduct] = useState(true);
   const {goBack} = useNavigation();
   const handleProduct = useCallback(async () => {
     const name = 'Vegetables';
@@ -62,15 +63,16 @@ const Vegetable: React.FC = ({navigation}: any) => {
       const products = responseProduct.data;
 
       setProducts(products);
+      loadingProduct(false);
     }
-  }, [setProducts, products]);
+  }, [setProducts, products, loadingProduct]);
   useEffect(() => {
     handleProduct();
   }, [product]);
 
   return (
     <>
-      {loadingProduct ? (
+      {loading ? (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <ActivityIndicator size="large" color="#228b22" />
         </View>
@@ -140,7 +142,7 @@ const Vegetable: React.FC = ({navigation}: any) => {
                 <ArrowContainer onPress={() => goBack()}>
                   <Icon name="arrow-left" size={30} color="#228B22" />
                 </ArrowContainer>
-                <FruityTexte>Fruitas</FruityTexte>
+                <FruityTexte>Legumes</FruityTexte>
               </HeaderContainer>
               <Text>Não há produto disponivel</Text>
             </Container>

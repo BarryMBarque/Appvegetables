@@ -45,14 +45,14 @@ interface Product {
   picture_url: string;
 }
 const Fruity: React.FC = ({navigation}: any) => {
-  const {product, loadingProduct} = useProduct();
+  const {product} = useProduct();
   const [products, setProducts] = useState<Product[]>();
+  const [loading, loadingProduct] = useState(true);
   const {goBack} = useNavigation();
   const handleProduct = useCallback(async () => {
     const name = 'Fruits';
     const responseCategories = await api.post('/findCategory', {name});
     const categoryProduct_id = responseCategories.data.id;
-
     if (categoryProduct_id) {
       const responseProduct = await api.post<Product[]>(
         '/getAllProductsByCategory',
@@ -63,15 +63,15 @@ const Fruity: React.FC = ({navigation}: any) => {
       const products = responseProduct.data;
 
       setProducts(products);
+      loadingProduct(false);
     }
-  }, [setProducts, products]);
+  }, [setProducts, products, loadingProduct]);
   useEffect(() => {
     handleProduct();
   }, [product]);
-
   return (
     <>
-      {loadingProduct ? (
+      {loading ? (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <ActivityIndicator size="large" color="#228b22" />
         </View>

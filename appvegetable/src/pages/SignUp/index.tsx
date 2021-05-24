@@ -36,18 +36,18 @@ const SignUp: React.FC = () => {
   const navigation = useNavigation();
   const handleSignUp = useCallback(async (data: SignUpFormData) => {
     try {
-      // formRef.current?.setErrors({});
-      // const schema = Yup.object().shape({
-      //   name: Yup.string().required('Nome obrigatório'),
-      //   email: Yup.string()
-      //     .required('E-mail obrigatório')
-      //     .email('Digite um e-mail válido'),
-      //   password: Yup.string().min(6, 'No minimo 6 dígitos'),
-      // });
+      formRef.current?.setErrors({});
+      const schema = Yup.object().shape({
+        name: Yup.string().required('Nome obrigatório'),
+        email: Yup.string()
+          .required('E-mail obrigatório')
+          .email('Digite um e-mail válido'),
+        password: Yup.string().min(6, 'No minimo 6 dígitos'),
+      });
 
-      // await schema.validate(data, {
-      //   abortEarly: false,
-      // });
+      await schema.validate(data, {
+        abortEarly: false,
+      });
 
       console.log(data);
       await api.post('/users', {
@@ -57,19 +57,11 @@ const SignUp: React.FC = () => {
         email: data.email,
         password: data.password,
       });
-      // console.log(res);
-      // history.push('/');
       Alert.alert(
         'Cadastro realizado',
         'você já pode fazer seu logon no App Vegetable',
       );
       navigation.navigate('SignIn');
-
-      // addToast({
-      //   type: 'success',
-      //   title: 'Cadastro realizado',
-      //   description: 'você já pode fazer seu logon no GoBarber',
-      // });
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
@@ -80,11 +72,6 @@ const SignUp: React.FC = () => {
         'Ocorreu um erro ao fazer o cadastro, tente novamente!',
       );
       return;
-      //addToast({
-      //  type: 'error',
-      //  title: 'Erro no  cadastro',
-      //  description: 'Ocorreu um erro ao fazer o cadastro, tente novamente!',
-      // });
     }
   }, []);
   return (
@@ -129,7 +116,7 @@ const SignUp: React.FC = () => {
                 autoCapitalize="none"
                 name="phoneNumber"
                 icon="phone"
-                placeholder="Telephone"
+                placeholder="Telefone"
                 returnKeyType="next"
                 onSubmitEditing={() => {
                   emailInputRef.current?.focus();
@@ -153,7 +140,7 @@ const SignUp: React.FC = () => {
                 secureTextEntry
                 name="password"
                 icon="lock"
-                placeholder="Mot de passe"
+                placeholder="Senha"
                 textContentType="newPassword"
                 returnKeyType="send"
                 onSubmitEditing={() => {

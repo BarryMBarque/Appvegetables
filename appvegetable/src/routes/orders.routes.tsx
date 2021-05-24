@@ -12,6 +12,7 @@ const Orders = createStackNavigator();
 
 const OrdersRoutes: React.FC = () => (
   <Orders.Navigator
+    initialRouteName="Checkout"
     screenOptions={{
       headerShown: false,
       cardStyle: {backgroundColor: '#fff'},

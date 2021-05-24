@@ -76,7 +76,7 @@ const AdressProvider: React.FC = ({ children }) => {
     }
 
 
-  }, []);
+  }, [setData]);
 
   const deleteAdress = useCallback(async (
     id
@@ -94,7 +94,7 @@ const AdressProvider: React.FC = ({ children }) => {
 
 
 
-  }, []);
+  }, [getAdress, setData]);
 
 
 

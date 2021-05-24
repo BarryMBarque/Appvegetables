@@ -151,7 +151,7 @@ const Menu: React.FC = ({navigation, route}: any) => {
               <Icon name="bell" size={30} color="#228B22" />
             </HeaderContainer>
             <AvatarContainer>
-              <AvatarContent>
+              <AvatarContent onPress={() => navigation.navigate('User')}>
                 {user.avatar_url ? (
                   <Avatar
                     size="medium"
@@ -223,7 +223,18 @@ const Menu: React.FC = ({navigation, route}: any) => {
                       <PromoPriceContainer>
                         <PromoPrice>${item.item.final_price}</PromoPrice>
                       </PromoPriceContainer>
-                      <PromoAddContainer>
+                      <PromoAddContainer
+                        onPress={() =>
+                          navigation.navigate('FruityDescription', {
+                            id: item.item.id,
+                            picture_url: item.item.picture_url,
+                            name: item.item.name,
+                            distcount_coupon: item.item.discount_coupon,
+                            price: item.item.price,
+                            discount_price: item.item.final_price,
+                            description: item.item.description,
+                          })
+                        }>
                         <PromoAdd>+</PromoAdd>
                       </PromoAddContainer>
                     </PromotionContainer>

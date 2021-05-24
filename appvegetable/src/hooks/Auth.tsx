@@ -30,6 +30,7 @@ interface SignInCredetials {
 }
 interface AuthContextData {
   user: User;
+  token: string;
   loading: boolean;
   signIn(credentials: SignInCredetials): Promise<void>;
   updateUser(user: User): Promise<void>;
@@ -90,10 +91,10 @@ const AuthProvider: React.FC = ({ children }) => {
         user,
       });
     },
-    [data.token],
+    [data.token,setData],
   );
   return (
-    <AuthContext.Provider value={{ user: data.user, loading, signIn, signOut, updateUser }}>
+    <AuthContext.Provider value={{ user: data.user, loading, signIn, signOut, updateUser , token: data.token}}>
       {children}
     </AuthContext.Provider>
   );

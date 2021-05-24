@@ -79,7 +79,7 @@ const ProductProvider: React.FC = ({ children }) => {
     }catch{
       Alert.alert('Erro, Erro ao carregar os produtos')
     }
-  }, []);
+  }, [setData]);
   const findById = useCallback(async (product_id) => {
 
     const response = await api.post('/products/findByid',{product_id});
@@ -94,7 +94,7 @@ const ProductProvider: React.FC = ({ children }) => {
 
 
 
-  }, []);
+  }, [setDataCart]);
 
 
 

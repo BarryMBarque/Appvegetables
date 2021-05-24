@@ -67,7 +67,6 @@ const SignIn: React.FC = () => {
       await getProduct();
       navigation.navigate('Menu');
       console.log('OK');
-      //  history.push('/dashboard');
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
@@ -80,7 +79,7 @@ const SignIn: React.FC = () => {
       );
     }
   }, []);
-  // console.log(user);
+
   return (
     <>
       {loading ? (
@@ -133,7 +132,7 @@ const SignIn: React.FC = () => {
 
               <ForgotPassword
                 onPress={() => {
-                  'esquci minha senha';
+                  navigation.navigate('SendPassword');
                 }}>
                 <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
               </ForgotPassword>

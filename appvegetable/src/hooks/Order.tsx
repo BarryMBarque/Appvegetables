@@ -84,7 +84,7 @@ const OrderProvider: React.FC = ({ children }) => {
     }
 
 
-  }, []);
+  }, [setData]);
 
 
 

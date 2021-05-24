@@ -24,7 +24,7 @@ Para fazer o uso do Api, algumas ferramentas serão necessárias:
 
 ## Arquitetura
 * O projeto é dividido em 5 pastas principais
-  * Components: É a pasta onde fica os component principais do layout do App;
+  * Components: É a pasta onde fica os componentes principais do layout do App;
 
   * hooks: É a pasta onde fica os context API.
 
